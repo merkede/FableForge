@@ -17,36 +17,34 @@ STYLES = {
             'Expressionism': 'Expressionist art style, Edvard Munch, distorted forms, dramatic colors, emotional impact, subjective'
           }
 
-
 load_dotenv('keys.env')
 dataset_path = os.getenv('DATASET_PATH')
 
 
 def main():
     st.title("FableForge 📚")
-    user_input = st.text_input("Enter a prompt to generate a picture book based off of!", max_chars=70)
-    style = st.selectbox("Select a style for your picture book!", [key for key in STYLES.keys()])
-    model = st.radio("Select a model to use", ['gpt-3.5-turbo-0613', 'gpt-4-0613'])
+    user_input = st.text_input("Enter a prompt and Hamzah's AI will generate a picture book just for you!", max_chars=70)
+    style = st.selectbox("Pick a style, any style!", [key for key in STYLES.keys()])
+    model = st.radio("Which OpenAi model would you prefer?", ['gpt-3.5-turbo-0613', 'gpt-4-0613'])
     deep_lake = st.checkbox("Save to Deep Lake?")
     if 'not_saving' not in st.session_state:
         st.session_state['not_saving'] = True
     if st.button('Generate!') and user_input and st.session_state['not_saving']:
-        with st.spinner('Generating your book...'):
+        with st.spinner('Hamzah The Genuis is at work on your book...'):
             build_book = BuildBook(model, user_input, f'{STYLES[style]}')
             pages = build_book.list_of_tuples
             finished_pdf = build_pdf(pages, 'result.pdf')
             file_bytes = open(finished_pdf, 'rb').read()
             st.download_button(label='Download Book', data=file_bytes, file_name='picture_book.pdf',
                                key='download_button')
-            st.write('Your book has been generated! Click the download button to download it. It is also saved'
-                     'in the project directory.')
+            st.write('Hamzahs AI has written your book! Click the download button to download it!')
         if deep_lake and st.session_state['not_saving']:
             st.session_state['not_saving'] = False
             with st.spinner('Saving to DeepLake...'):
                 try:
                     SaveToDeepLake(build_book, dataset_path=dataset_path).fill_dataset()
                     st.markdown(
-                        f'Your images and SD prompts have been saved to Deep Lake! [View it here](https://app.activeloop.ai/datasets/mydatasets/)')
+                        f'Your images aved too')
                     st.session_state['not_saving'] = True
 
                 except:
