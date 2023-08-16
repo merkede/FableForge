@@ -1,4 +1,4 @@
-aioboto3==8.0.5           
+aioboto3       
 aiobotocore==1.0.4        
 aiohttp==3.6.2          
 aioitertools==0.7.0  
