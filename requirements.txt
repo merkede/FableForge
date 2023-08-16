@@ -1,5 +1,5 @@
 aioboto3       
-aiobotocore==1.0.4        
+aiobotocore
 aiohttp       
 aioitertools==0.7.0  
 async-timeout  
