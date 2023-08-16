@@ -4,7 +4,7 @@ aiohttp
 aioitertools==0.7.0  
 async-timeout  
 attrs   
-boto3==1.12.32         
+boto3  
 botocore
 chardet==3.0.4      
 docutils==0.15.2         
